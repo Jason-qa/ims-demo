@@ -40,9 +40,9 @@ public class ItemDaoMysql implements Dao<Item> {
 		return new Item(item_ID, item_name, price);
 	}
 
-	// over ride???
+	@Override
 	public List<Item> readAll() {
-		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password); 
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("select * from item");) {
 			ArrayList<Item> Item = new ArrayList<>();
