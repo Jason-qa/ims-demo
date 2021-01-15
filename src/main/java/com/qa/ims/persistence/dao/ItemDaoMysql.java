@@ -34,8 +34,8 @@ public class ItemDaoMysql implements Dao<Item> {
 	}
 
 	Item itemFromResultSet(ResultSet resultSet) throws SQLException {
-		Long item_ID = resultSet.getLong("Item_ID");
-		String item_name = resultSet.getString("Item_name");
+		Long item_ID = resultSet.getLong("Item ID");
+		String item_name = resultSet.getString("Name");
 		double price = resultSet.getDouble("Price");
 		return new Item(item_ID, item_name, price);
 	}
@@ -84,7 +84,7 @@ public class ItemDaoMysql implements Dao<Item> {
 		return null;
 	}
 
-	public Item readCustomer(Long Item_ID) {
+	public Item readItem(Long Item_ID) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("SELECT FROM item where item ID = " + Item_ID);) {
@@ -103,7 +103,7 @@ public class ItemDaoMysql implements Dao<Item> {
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("update item set Name ='" + item.getItem_name() + "', Price ='"
 					+ item.getPrice() + "' where item_ID =" + item.getItem_ID());
-			return readCustomer(item.getItem_ID());
+			return readItem(item.getItem_ID());
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace()); 
 			LOGGER.error(e.getMessage());
