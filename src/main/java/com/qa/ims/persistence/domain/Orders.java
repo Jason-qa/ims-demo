@@ -15,6 +15,19 @@ public class Orders {
 		this.order_address = order_address;
 	}
 
+	public Orders(String order_date, String order_address) {
+		this.order_date = order_date;
+		this.order_address = order_address;
+	}
+
+	
+	public Orders(Long order_ID, String order_date, String order_address) {
+		super();
+		this.order_ID = order_ID;
+		this.order_date = order_date;
+		this.order_address = order_address;
+	}
+
 	public String getOrder_date() {
 		return order_date;
 	}
