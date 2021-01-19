@@ -16,9 +16,11 @@ import com.qa.ims.controller.CustomerController;
 import com.qa.ims.controller.ItemController;
 import com.qa.ims.controller.OrdersItemsController;
 import com.qa.ims.persistence.dao.CustomerDaoMysql;
+import com.qa.ims.persistence.dao.OrdersItemsDaoMySql;
 import com.qa.ims.persistence.dao.ItemDaoMysql;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.services.CustomerServices;
+import com.qa.ims.services.Orders_ItemsServices;
 import com.qa.ims.services.ItemServices;
 import com.qa.ims.utils.Utils;
 
@@ -33,34 +35,39 @@ public class Ims {
 		String password = Utils.getInput();
 
 		init(username, password);
+		int i = 0;
+		while (i <= 100) {
+			LOGGER.info("Which entity would you like to use?");
+			Domain.printDomains();
 
-		LOGGER.info("Which entity would you like to use?");
-		Domain.printDomains();
+			Domain domain = Domain.getDomain();
+			LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
 
-		Domain domain = Domain.getDomain();
-		LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
+			Action.printActions();
+			Action action = Action.getAction();
 
-		Action.printActions();
-		Action action = Action.getAction();
-
-		switch (domain) {
-		case CUSTOMER:
-			CustomerController customerController = new CustomerController(
-					new CustomerServices(new CustomerDaoMysql(username, password)));
-			doAction(customerController, action);
-			break;
-		case ITEM:
-			ItemController itemController = new ItemController(new ItemServices(new ItemDaoMysql(username, password)));
-			doAction(itemController, action);
-			break;
-		case ORDER:
-			OrdersItemsController ordersItemsController = new OrdersItemsController(new Orders_ItemsService(new OrdersItemsDaoMysql(username, password)));
-			doAction(itemController, action);
-			break;
-		case STOP:
-			break;
-		default:
-			break;
+			switch (domain) {
+			case CUSTOMER:
+				CustomerController customerController = new CustomerController(
+						new CustomerServices(new CustomerDaoMysql(username, password)));
+				doAction(customerController, action);
+				break;
+			case ITEM:
+				ItemController itemController = new ItemController(
+						new ItemServices(new ItemDaoMysql(username, password)));
+				doAction(itemController, action);
+				break;
+			case ORDER:
+				OrdersItemsController ordersItemsController = new OrdersItemsController(
+						new Orders_ItemsServices(new OrdersItemsDaoMySql(username, password)));
+				doAction(ordersItemsController, action);
+				break;
+			case STOP:
+				break;
+			default:
+				break;
+			}
+			i++;
 		}
 
 	}

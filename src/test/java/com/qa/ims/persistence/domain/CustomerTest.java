@@ -16,8 +16,8 @@ public class CustomerTest {
 	
 	@Before
 	public void setUp() {
-		customer = new Customer(1L, "Chris", "Perrins");
-		other = new Customer(1L, "Chris", "Perrins");
+		customer = new Customer(1L, "Chris", "Perrins", "4 tim lane");
+		other = new Customer(1L, "Chris", "Perrins", "56 button moon road");
 	}
 	
 	@Test
@@ -121,7 +121,7 @@ public class CustomerTest {
 	
 	@Test
 	public void constructorWithoutId() {
-		Customer customer = new Customer("Chris", "Perrins");
+		Customer customer = new Customer("Chris", "Perrins", null);
 		assertNull(customer.getId());
 		assertNotNull(customer.getFirstName());
 		assertNotNull(customer.getSurname());
@@ -133,8 +133,8 @@ public class CustomerTest {
 	}
 	@Test
 	public void hashCodeTestWithNull() {
-		Customer customer = new Customer(null, null);
-		Customer other = new Customer(null, null);
+		Customer customer = new Customer(null, null, null);
+		Customer other = new Customer(null, null, null);
 		assertEquals(customer.hashCode(), other.hashCode());
 	}
 	
